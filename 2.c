@@ -1,59 +1,45 @@
 #include <stdio.h>
-#include <math.h>
+#include <math.h> // Потрібно для функції pow()
+
 int main() {
-    int choice;
-    int start = 10, end = 20;
-    long long sum, result;
-    printf("Оберіть тип циклу для обчислення куба суми парних чисел у (10; 20]:\n");
-    printf("1 - Цикл з параметром (for)\n");
-    printf("2 - Цикл з передумовою (while)\n");
-    printf("3 - Цикл з післяумовою (do-while)\n");
-    printf("Ваш вибір: ");
-    scanf("%d", &choice);
-    switch (choice) {
-        case 1:
-            sum = 0;
-            for (int i = start + 1; i <= end; i++) {
-                if (i % 2 == 0) {
-                    sum += i;
-                }
-            }
-            result = pow(sum, 3);
-            printf("\n[FOR] Сума парних: %lld. Куб суми: %lld\n", sum, result);
-            break;
+    // Оголошуємо змінні для сум та результатів
+    int sum_a = 0, sum_b = 0, sum_v = 0;
+    long result_a, result_b, result_v;
 
-        case 2:
-        
-            sum = 0;
-            int j = start + 1;
-            while (j <= end) {
-                if (j % 2 == 0) {
-                    sum += j;
-                }
-                j++;
-            }
-            result = pow(sum, 3);
-            printf("\n[WHILE] Сума парних: %lld. Куб суми: %lld\n", sum, result);
-            break;
-        case 3:
-            sum = 0;
-            int k = start + 1;
-            if (k <= end) {
-                do {
-                    if (k % 2 == 0) {
-                        sum += k;
-                    }
-                    k++;
-                } while (k <= end);
-            }
-            result = pow(sum, 3);
-            printf("\n[DO-WHILE] Сума парних: %lld. Куб суми: %lld\n", sum, result);
-            break;
-
-        default:
-            printf("\nПомилка: Неправильний вибір варіанту (введіть 1, 2 або 3).\n");
-            break;
+    // --- А) ЦИКЛ З ПАРАМЕТРОМ (FOR) ---
+    // for(початок; умова; крок)
+    for (int i = 11; i <= 20; i++) {
+        if (i % 2 == 0) {    // Якщо число i ділиться на 2 без залишку
+            sum_a += i;      // Додаємо його до суми
+        }
     }
+    result_a = (long)sum_a * sum_a * sum_a; // Обчислюємо куб (сума * сума * сума)
+    printf("A) Cycle for: %ld\n", result_a);
+
+
+    // --- Б) ЦИКЛ З ПЕРЕДУМОВОЮ (WHILE) ---
+    int j = 11;              // Початкове значення
+    while (j <= 20) {        // Поки j менше або дорівнює 20
+        if (j % 2 == 0) {
+            sum_b += j;
+        }
+        j++;                 // Збільшуємо лічильник (крок циклу)
+    }
+    result_b = (long)sum_b * sum_b * sum_b;
+    printf("B) Cycle while: %ld\n", result_b);
+
+
+    // --- В) ЦИКЛ З ПІСЛЯУМОВОЮ (DO-WHILE) ---
+    int k = 11;              // Початкове значення
+    do {
+        if (k % 2 == 0) {
+            sum_v += k;
+        }
+        k++;                 // Збільшуємо лічильник
+    } while (k <= 20);       // Перевірка умови в кінці (виконається хоча б 1 раз)
+
+    result_v = (long)sum_v * sum_v * sum_v;
+    printf("V) Cycle do-while: %ld\n", result_v);
 
     return 0;
 }

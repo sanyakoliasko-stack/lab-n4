@@ -1,38 +1,63 @@
-#include <stdio.h>
-#include <math.h>
+#include <stdio.h>   // Бібліотека для введення/виведення (printf, scanf)
+#include <math.h>    // Бібліотека для математичних функцій (cos, pow)
+
 int main() {
-    int a, b;
-    double x, numerator, denominator;
-    int input_status;
-    while (1) {
+    int a, b; // Цілі змінні a і b (вводить користувач)
+    double x, numerator, denominator; // Дійсні змінні для обчислень
+    int input_status; // Для перевірки правильності введення
+
+    while (1) { // Нескінченний цикл (поки не введуть правильні дані)
+        
         printf("\nВведіть цілі значення a та b:\n");
+
         printf("a = ");
-        input_status = scanf("%d", &a);
-        if (input_status != 1) {
+        input_status = scanf("%d", &a); // Зчитуємо a
+
+        if (input_status != 1) { // Якщо введено НЕ число
             printf("Помилка: Введено не число. Спробуйте ще раз.\n");
-            while (getchar() != '\n'); // Очищення буфера введення
-            continue;
+            while (getchar() != '\n'); // Очищаємо буфер
+            continue; // Почати цикл заново
         }
+
         printf("b = ");
-        input_status = scanf("%d", &b);
-        if (input_status != 1) {
+        input_status = scanf("%d", &b); // Зчитуємо b
+
+        if (input_status != 1) { // Якщо введено НЕ число
             printf("Помилка: Введено не число. Спробуйте ще раз.\n");
-            while (getchar() != '\n'); // Очищення буфера введення
-            continue;
+            while (getchar() != '\n'); // Очищаємо буфер
+            continue; // Почати цикл заново
         }
-        int check_val = a * a - 3 * b;
-        if (check_val == 0) {
-            printf("Помилка: для заданих значень a=%d та b=%d у виразі виконується ділення на 0.\n", a, b);
+
+        int check_val = a * a - 3 * b; 
+        // Обчислюємо знаменник (частина формули)
+
+        if (check_val == 0) { 
+            // Перевірка: щоб не було ділення на 0
+            printf("Помилка: для a=%d та b=%d буде ділення на 0.\n", a, b);
             printf("Задайте інші значення.\n");
-            continue; // Повернення на початок циклу
+            continue; // Повертаємось на початок циклу
         }
-        numerator = 2 * cos(a) - pow(b, 2);
+
+        // Обчислення косинуса
+        double cos_value = cos(a); 
+        // cos(a) — косинус числа a (a в РАДІАНАХ!)
+
+        // Чисельник: 2*cos(a) - b^2
+        numerator = 2 * cos_value - pow(b, 2);
+
+        // Знаменник: 3*(a^2 - 3b)
         denominator = 3.0 * check_val;
+
+        // Остаточний результат
         x = numerator / denominator;
+
         printf("-----------------------------------\n");
-        printf("Результат: x = %.6f\n", x);
+        printf("cos(a) = %.6f\n", cos_value); // Виводимо косинус
+        printf("Результат: x = %.6f\n", x);   // Виводимо результат
         printf("-----------------------------------\n");
-        break; // Вихід з циклу після успішного обчислення
+
+        break; // Вихід з циклу після правильного обчислення
     }
-    return 0;
+
+    return 0; // Завершення програми
 }
